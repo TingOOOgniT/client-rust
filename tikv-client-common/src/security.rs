@@ -77,6 +77,8 @@ impl SecurityManager {
         let addr = SCHEME_REG.replace(addr, "");
 
         let cb = ChannelBuilder::new(env)
+            .max_send_message_len(41943040)
+            .max_receive_message_len(41943040)
             .keepalive_time(Duration::from_secs(10))
             .keepalive_timeout(Duration::from_secs(3))
             .use_local_subchannel_pool(true);
