@@ -79,8 +79,9 @@ impl SecurityManager {
         let cb = ChannelBuilder::new(env)
             .max_send_message_len(41943040)
             .max_receive_message_len(41943040)
-            .keepalive_time(Duration::from_secs(10))
-            .keepalive_timeout(Duration::from_secs(3))
+            .keepalive_time(Duration::from_secs(1))
+            .keepalive_timeout(Duration::from_secs(30))
+            .max_reconnect_backoff(Duration::from_millis(500))
             .use_local_subchannel_pool(true);
 
         let channel = if self.ca.is_empty() {

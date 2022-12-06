@@ -331,9 +331,10 @@ impl<KvC: KvConnect + Send + Sync + 'static, Cl> PdRpcClient<KvC, Cl> {
     }
 
     async fn kv_client(&self, address: &str) -> Result<KvC::KvClient> {
-        if let Some(client) = self.kv_client_cache.read().await.get(address) {
-            return Ok(client.clone());
-        };
+        // (yc) comment cache
+        // if let Some(client) = self.kv_client_cache.read().await.get(address) {
+        //     return Ok(client.clone());
+        // };
         info!(self.logger, "connect to tikv endpoint: {:?}", address);
         match self.kv_connect.connect(address) {
             Ok(client) => {
